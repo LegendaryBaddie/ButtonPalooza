@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/babel" >
+    "use strict";
+    
+    let socket;
+  
+    let button = {
+      fillColor: "#FFFFFF",
+      borderColor: "#FFFFFF",
+      textColor: "#000000",
+      text: "Click Me!",
+    }
+    let colorSlider = {
+      red: 0,
+      green: 0,
+      blue: 0,
+    };
+    const setColor = () =>
+    {
+      //set color based on current checked selector
+    }
+    const init = () => {
+      socket = io.connect();
+      
+      $("#red").change(() =>{
+        colorSlider.red = $("#red").val();
+        let tempColor = `rgb(${colorSlider.red},${colorSlider.green},${colorSlider.blue})`;
+        $("#oneTrueButton").css("background-color", tempColor);
+      });
+      $("#blue").change(() =>{
+        colorSlider.blue = $("#blue").val();
+        let tempColor = `rgb(${colorSlider.red},${colorSlider.green},${colorSlider.blue})`;
+        $("#oneTrueButton").css("background-color", tempColor);
+      });
+      $("#green").change(() =>{
+        colorSlider.green = $("#green").val();
+        let tempColor = `rgb(${colorSlider.red},${colorSlider.green},${colorSlider.blue})`;
+        $("#oneTrueButton").css("background-color", tempColor);
+      });
+
+
+      socket.on('restart', (data) =>{
+      
+      });
+      socket.on('update', (data) =>{
+      
+      });
+      socket.on('msgUpdate', (data) =>{
+     
+      });
+      socket.on('killButton', () => {
+  
+      });
+     
+    };
+    
+    window.onload = init;
+  </script>
+</head>
+<body>
+
+  <button id="oneTrueButton" type="button" >Click Me!</button>
+  <label>Button Color</label>
+  <input type="range" id="red" min="0" max="255" value="0" step="1">
+  <input type="range" id="green" min="0" max="255" value="0" step="1">
+  <input type="range" id="blue" min="0" max="255" value="0" step="1">
+  <label>Button Border Color</label><input id="borderColor" type="text">
+  <label>Button Text</label><input id="butContent" type="text">
+  <label>Button Text Color</label><input id="textColor" type="text">
+</body>
+</html>
