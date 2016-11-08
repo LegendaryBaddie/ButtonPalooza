@@ -4,11 +4,11 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
-    "start": "node --use_strict ./src/server.js ",
+    "start": "node --use_strict ./src/app.js ",
     "pretest": "eslint ./src --fix",
     "test": "echo 'complete'"
   },
-    "engines": {
+  "engines": {
     "node": "6.5.0"
   },
   "author": "Austin White",
@@ -19,6 +19,11 @@
     "eslint-plugin-import": "^1.14.0"
   },
   "dependencies": {
-    "socket.io": "^1.4.8"
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-session": "^1.13.0",
+    "mongoose": "^4.6.6",
+    "socket.io": "^1.4.8",
+    "underscore": "^1.8.3"
   }
 }

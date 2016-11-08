@@ -9,60 +9,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/babel" >
-        "use strict";
-    
-       let socket = io.connect('http://localhost:3000');
-  
-        let button = {
-        fillColor: "#FFFFFF",
-        borderColor: "#FFFFFF",
-        textColor: "#000000",
-          text: "Click Me!",
-      }
-      let colorSlider = {
-       red: 0,
-       green: 0,
-       blue: 0,
-      };
-       const setColor = () =>
-     {
-       //set color based on current checked selector
-        let tempColor = `rgb(${colorSlider.red},${colorSlider.green},${colorSlider.blue})`;
-                    
-       switch($("input[type='radio'][name='target']:checked").val())
-       {
-           case 'fill':
-                    $("#oneTrueButton").css("background-color", tempColor);
-                    break;
-           case 'border':
-                    $("#oneTrueButton").css("border-color", tempColor);
-                    break;
-           case 'text':
-                    $("#oneTrueButton").css("color", tempColor);
-                    break;
-       }
-     }
-     const init = () => {
-       
-      
-         $("#red").change(() =>{
-          colorSlider.red = $("#red").val();
-          setColor();
-         });
-         $("#blue").change(() =>{
-         colorSlider.blue = $("#blue").val();
-         setColor();
-          });
-          $("#green").change(() =>{
-           colorSlider.green = $("#green").val();
-           setColor();
-         });
-     };
-
-      window.onload = init;
-    </script>
     <title>Simple Sidebar - Start Bootstrap Template</title>
 
     <!-- Bootstrap Core CSS -->
@@ -93,7 +39,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="signup.html">Signup</a>
                 </li>
                 <li>
                     <a href="#">Shortcuts</a>
@@ -113,7 +59,13 @@
                 <li>
                     <a href="#">Contact</a>
                 </li>
+                <li>
+                    <section id="login">
+                        
+                    </section>
+                </li>
             </ul>
+            
         </div>
         <div id="toggle-wrapper">
             
@@ -164,7 +116,8 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-
+    <script src="js/constructor.js"></script>
+    <script src="js/ajaxBuddy.js"></script>
 </body>
 
 </html>
