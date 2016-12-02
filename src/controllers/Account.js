@@ -3,32 +3,32 @@ const models = require('../models');
 const Account = models.Account;
 
 const signupPage = (req, res) => {
-    res.render('signup');
-}
-const logout = (req,res) => {
-    req.session.destroy();
-    res.redirect('/');
+  res.render('signup', { csrfToken: req.csrfToken() });
+};
+const logout = (req, res) => {
+  req.session.destroy();
+  res.redirect('redirect');
 };
 
 const login = (request, response) => {
-    const req = request;
-    const res = response;
+  const req = request;
+  const res = response;
 
-    const username = `${req.body.username}`;
-    const password = `${req.body.pass}`;
+  const username = `${req.body.username}`;
+  const password = `${req.body.pass}`;
 
-    if (!username || !password) {
-        return res.status(400).json({ error: 'All fields are required' });
+  if (!username || !password) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  return Account.AccountModel.authenticate(username, password, (err, account) => {
+    if (err || !account) {
+      return res.status(400).json({ error: 'Wrong username or password' });
     }
-  
-    return Account.AccountModel.authenticate(username, password, (err, account) => {
-        if (err || !account) {
-         return res.status(400).json({ error: 'Wrong username or password' });
-        }
 
     req.session.account = Account.AccountModel.toAPI(account);
-    //redirect to current button creation/ownership page
-    return res.json({ redirect: '/'});
+    // redirect to current button creation/ownership page
+    return res.json({ redirect: '/' });
   });
 };
 const signup = (request, response) => {
@@ -59,21 +59,13 @@ const signup = (request, response) => {
       }
 
       req.session.account = Account.AccountModel.toAPI(newAccount);
-      //redirect to current button creation/ownership page
-      return res.json({ redirect: '/'});
+      // redirect to current button creation/ownership page
+      return res.json({ redirect: '/' });
     });
   });
 };
 
-const user = (req, res) =>{
-  if(req.session && req.session.account)
-  {
-    return res.json({username: true, account: req.session.account});
-  }
-  return res.json({username: false});
-}
-
-module.exports.user = user;
 module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;
+module.exports.signupPage = signupPage;

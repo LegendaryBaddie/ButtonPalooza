@@ -1,4 +1,5 @@
-
+$(document).ready(() => {
+    
         let button = {
         fillColor: "#FFFFFF",
         borderColor: "#FFFFFF",
@@ -18,19 +19,57 @@
        switch($("input[type='radio'][name='target']:checked").val())
        {
            case 'fill':
-                    $("#oneTrueButton").css("background-color", tempColor);
+                    $("#sampleButton").css("background-color", tempColor);
+                    $("#fillColor").val(tempColor);
                     break;
            case 'border':
-                    $("#oneTrueButton").css("border-color", tempColor);
+                    $("#sampleButton").css("border-color", tempColor);
+                     $("#borderColor").val(tempColor);
                     break;
            case 'text':
-                    $("#oneTrueButton").css("color", tempColor);
+                    $("#sampleButton").css("color", tempColor);
+                     $("#textColor").val(tempColor);
                     break;
        }
      }
-     const init = () => {
-       
-      
+      const handleError = (message) => {
+        $("#errorMessage").text(message);
+    }
+      const sendAjax = (action, data) => {
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: action,
+            data: data,
+            dataType: "json",
+            success: (result, status, xhr) => {
+                window.location = result.redirect;
+            },
+            error: (xhr, status, error) => {
+                const messageObj = JSON.parse(xhr.responseText);
+            
+                handleError(messageObj.error);
+            }
+        });        
+    }
+     
+    $("#buttonSubmit").on("click", (e) => {
+        e.preventDefault();
+    
+        if($("#name").val() == '' || $("#buttonText").val() == '') {
+            handleError("All fields are required");
+            return false;
+        }
+ 
+        sendAjax($("#buttonForm").attr("action"),$('#buttonForm').serialize());
+        
+        return false;
+    });
+
+         $("#bText").change(() =>{
+           $("#sampleButton").html($("#bText").val());
+           
+         });
          $("#red").change(() =>{
           colorSlider.red = $("#red").val();
           setColor();
@@ -43,6 +82,5 @@
            colorSlider.green = $("#green").val();
            setColor();
          });
-     };
 
-      window.onload = init;
+});

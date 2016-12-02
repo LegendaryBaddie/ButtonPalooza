@@ -10,40 +10,65 @@ const setName = name => _.escape(name).trim();
 const setInnerText = innerText => _.escape(innerText).trim();
 
 const ButtonSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        require: true,
-        trim: true,
-        set: setName,
-    },
-    presses: {
-        type: Number,
-        min: 0,
-        set: 0,
-        required: true,
-    },
-    innerText: {
-        type: String,
-        required: true,
-        set: innerText,
-    },
-    fillColor: {
-        type: String,
-        required: true,
-    },
-    textColor: {
-        type: String,
-        required: true,
-    },
-    borderColor: {
-        type: String,
-        required: true,
-    },
-    borderWidth: {
-        type: String,
-        required: true,
-    },
+  name: {
+    type: String,
+    require: true,
+    trim: true,
+    set: setName,
+  },
+  presses: {
+    type: Number,
+    min: 0,
+    required: true,
+  },
+  innerText: {
+    type: String,
+    required: true,
+    set: setInnerText,
+  },
+  fillColor: {
+    type: String,
+    required: true,
+  },
+  textColor: {
+    type: String,
+    required: true,
+  },
+  borderColor: {
+    type: String,
+    required: true,
+  },
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    required: true,
+    unique: true,
+    ref: 'Account',
+  },
 });
+
+ButtonSchema.statics.toAPI = doc => ({
+  name: doc.name,
+  presses: doc.presses,
+  innerText: doc.innerText,
+  fillColor: doc.fillColor,
+  textColor: doc.textColor,
+  borderColor: doc.borderColor,
+  borderWidth: doc.borderWidth,
+});
+
+ButtonSchema.statics.removeByOwner = (ownerId, callback) => {
+  const search = {
+    owner: convertId(ownerId),
+  };
+  return ButtonModel.findOneAndRemove(search, callback);
+};
+
+ButtonSchema.statics.findByOwner = (ownerId, callback) => {
+  const search = {
+    owner: convertId(ownerId),
+  };
+  return ButtonModel.findOne(search, callback);
+};
 
 ButtonModel = mongoose.model('Button', ButtonSchema);
 

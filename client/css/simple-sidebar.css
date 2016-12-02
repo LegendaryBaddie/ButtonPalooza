@@ -12,9 +12,134 @@
     margin-left: 20px;
     margin-right: none;
 }
+#madeButton{
+    position: relative;
+    width:250px;
+    height:100px;
+    font-weight: 700;
+    font-size:1.5em;
+    left: 30%;
+    margin-top:20px;
+    margin-bottom: 30px;
+    
+}
+#madeButton:hover{
+    box-shadow: inset 0px 0px 20px rgba(255,255,255,.7);
+    transition: box-shadow font-size.1s ease;
+}
+#madeButton:active{
+    box-shadow: inset 0px 0px 20px rgba(0,0,0,.7);
+    font-size: 1.45em;
+}
+/*button maker*/
+#button{
+    position:absolute;
+    width:50%;
+    left:20%;
+    margin-top:80px;
+    border: 5px solid black;
+    border-radius: 30px;
+    padding: 10px;
+}
+#button label{
+    padding-right: 10px;
+    padding-bottom: 4px;
+}
+#button input[type="text"]{
+    position:absolute;
+    left: 200px;
+    margin:3px;
+}
+#color-slider{
+    width:40%;
+}
+.form-list{
+    padding:none;
+    margin:none;
+    list-style-type: none;
+}
+.form-list li {
+    border-bottom: 1px solid #E2DFE5;   
+    padding:5px;
+    transition: background .4s ease;
+}
+.form-list li:hover {
+    background:#BCBABF;
+}
+#sampleButton{
+    position: relative;
+    width:250px;
+    height:100px;
+    font-weight: 700;
+    font-size:1.5em;
+    left: 20%;
+    margin-top:20px;
+    margin-bottom: 30px;
+}
+/*slider*/
+#button input[type=range] {
+    -webkit-appearance: none;
+    border: 1px solid white;
+}
+#button input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #B26CCC;
+    margin-top: -4px;
+    
+}
+#button input[type=range]::-webkit-slider-runnable-track {
+    height: 7px;
+    background: #E2DFE5;
+    border: #BCBABF;
+    border-radius: 3px;
+    margin:4px;
+}
+#button input[type=range]:focus {
+    outline: none;
+}
+#button input[type=range]:-moz-focusring{
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+/*radio buttons */
+#radioSelector{
+    list-style-type: none;
+}
+#radioSelector li{
+    display: inline;
+}
+input.radio {
+	display: none;
+}
+input.radio ~ label::before{
+    position: relative;
+    display: inline-block;
+    content: '';
+    cursor: pointer;
+    vertical-align: -7px;
+    width: 20px;
+    height:20px;
+    margin: 3px 6px 3px 3px;
+    background: #BCBABF;
+    box-shadow: 0px 0px 7px rgba(0,0,0,.4) inset, 0px 0px 3px rgba(0,0,0,.9) ;
+    border-radius: 20px;
+}
+input.radio:checked ~label::before{
+    content:'✖';
+	text-indent: .25em;
+    top:-8px;
+	color: #B26CCC;
+    text-shadow:0px 0px 6px #000;
+}
 /*arrows */
 #arrow {
+    position:relative;
     z-index:1;
+    top:47%;
 }
 .arrow-right {
   width: 0; 

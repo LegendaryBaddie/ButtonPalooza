@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+	<title>Simple Sidebar - Start Bootstrap Template</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="/assets/css/simple-sidebar.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand">
+					<a href="#">
+                        Button Palooza
+                    </a>
+				</li>
+				<li>
+					<a href="/">Home</a>
+				</li>
+				 {{#if account}}
+                 {{#if makePage}}
+                <li>
+                    <a href="button">Make Button</a> 
+                </li>
+                {{else}}
+                <li>
+                    <a href="viewButton">View Button</a>
+                </li>
+                {{/if}}
+                <li>
+                    <section id="login">
+                            <h2>Welcome, {{account.username}}</h2>
+                            <a href="logout">Log Out</a>
+                    </section>
+                </li>
+                {{else}}
+                <li>
+                    <section id="login">
+                    <form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
+                        <label for="username">Username: </label>
+                        <input id="user" type="text" name="username" placeholder="username"/>
+                        <label for="pass">Password: </label>
+                        <input id="pass" type="password" name="pass" placeholder="password"/>
+                        <input type="hidden" name="_csrf" value={{csrfToken}} />
+                        <a id="loginSubmit" href="#" class="formSubmit">Sign in</a>
+                     </form>
+                     <a href="signup">Sign up</a>
+                    </section>
+                </li>
+                {{/if}}
+			</ul>
+
+		</div>
+		<div id="toggle-wrapper">
+
+			<div class="arrow-left" id="arrow">
+				<!-- idea and code from css-tricks.com -->
+			</div>
+		</div>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<section id="button">
+							<h1>Make Your Button!</h1>
+							<button id="sampleButton"></button>
+							
+							<div id="color">
+									<h3>Button Color</h3>
+                         			<div id="color-target">
+										<ul id="radioSelector">
+                                			<li><input type="radio" name="target" class="radio" id="radio1" value="fill" checked><label for="radio1" >Fill Color</label></li>
+											<li><input type="radio" name="target" class="radio" id="radio2" value="border"><label for="radio2" >Border</label></li>
+                                			<li><input type="radio" name="target" class="radio" id="radio3" value="text"><label for="radio3">Text</label></li>
+										</ul>
+									 </div>
+                         			<div id="color-slider">
+                         				<input type="range" id="red" min="0" max="255" value="255" step="1">
+                        				<input type="range" id="green" min="0" max="255" value="255" step="1">
+                         				<input type="range" id="blue" min="0" max="255" value="255" step="1">
+                         			</div>
+								 </div>
+							<form id="buttonForm" name="buttonForm" action="/makeButton" method="POST" class="mainForm">
+								<ul class="form-list">
+									<li>
+										<label for="name">Name </label>
+                               			<input id="name" type="text" name="name" maxlength="12" placeholder="name"/>
+									</li>
+									<li>
+                                		<label for="buttonText">Button Text </label>
+                                		<input id="bText" maxlength="12" type="text" name="buttonText" placeholder="buttonText"/>
+									</li>
+								</ul>
+								
+								<input type="hidden" id="fillColor" name="fillColor" val="rgb(0,0,0)" />
+								<input type="hidden" id="textColor" name="textColor" val="rgb(0,0,0)" />
+								<input type="hidden" id="borderColor" name="borderColor" val="rgb(0,0,0)"/>
+								<input type="hidden" name="_csrf" value={{csrfToken}} />
+								<a id="buttonSubmit" href="#" class="formSubmit">Make It!</a>
+							</form>
+							<h3> You are only allowed one button at a time!</h3>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="/assets/js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+
+	<!-- Menu Toggle Script -->
+	<script>
+    $("#toggle-wrapper").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script src="/assets/js/constructor.js"></script>
+    <script src="/assets/js/ajaxBuddy.js"></script>
+</body>
+
+</html>

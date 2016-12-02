@@ -1,5 +1,3 @@
 module.exports.Account = require('./Account.js');
-
-const index = (req,res) => {
-    res.render('index');
-};
+module.exports.Pages = require('./Pages.js');
+module.exports.Button = require('./Button.js');

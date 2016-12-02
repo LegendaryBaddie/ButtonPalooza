@@ -22,22 +22,8 @@ $(document).ready(() => {
         });        
     }
    
-    let user = $.ajax("/user");
-    
-    if(user.account.username !== "")
-    {
-         $("#login").html(`<p> Welcome ${user.account.username}! </p>`)
-    }else{
-        $("#login").html(
-            `<form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
-                <label for="username">Username: </label>
-                <input id="user" type="text" name="username" placeholder="username"/>
-                <label for="pass">Password: </label>
-                <input id="pass" type="password" name="pass" placeholder="password"/>
-                <a id="loginSubmit" href="#" class="formSubmit">Sign in</a>
-            </form>`
-        );
-    }
+  
+
     $("#signupSubmit").on("click", (e) => {
         e.preventDefault();
     

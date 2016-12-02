@@ -12,10 +12,10 @@
     <title>Simple Sidebar - Start Bootstrap Template</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/assets/css/simple-sidebar.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,31 +39,39 @@
                     </a>
                 </li>
                 <li>
-                    <a href="signup.html">Signup</a>
+                    <a href="#">Home</a>
                 </li>
+                {{#if account}}
+                 {{#if makePage}}
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="button">Make Button</a> 
                 </li>
+                {{else}}
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="viewButton">View Button</a>
                 </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+                {{/if}}
                 <li>
                     <section id="login">
-                        
+                            <h2>Welcome, {{account.username}}</h2>
+                            <a href="logout">Log Out</a>
                     </section>
                 </li>
+                {{else}}
+                <li>
+                    <section id="login">
+                    <form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
+                        <label for="username">Username: </label>
+                        <input id="user" type="text" name="username" placeholder="username"/>
+                        <label for="pass">Password: </label>
+                        <input id="pass" type="password" name="pass" placeholder="password"/>
+                        <input type="hidden" name="_csrf" value={{csrfToken}} />
+                        <a id="loginSubmit" href="#" class="formSubmit">Sign in</a>
+                     </form>
+                     <a href="signup">Sign up</a>
+                    </section>
+                </li>
+                {{/if}}
             </ul>
             
         </div>
@@ -79,21 +87,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1>Simple Sidebar</h1>
-                         <button id="oneTrueButton" type="button" >Click Me!</button>
-                         <label>Button Color</label>
-                         <div id="color-target">
-                                 <label><input type="radio" name="target" value="fill" checked>Fill Color</label>
-                                 <label><input type="radio" name="target" value="border">Border</label>
-                                 <label><input type="radio" name="target" value="text">Text</label>
-                         </div>
-                         <div id="color-slider">
-                         <input type="range" id="red" min="0" max="255" value="255" step="1">
-                         <input type="range" id="green" min="0" max="255" value="255" step="1">
-                         <input type="range" id="blue" min="0" max="255" value="255" step="1">
-                         </div>
-                         <label>Button Border Color</label><input id="borderColor" type="text">
-                         <label>Button Text</label><input id="butContent" type="text">
-                         <label>Button Text Color</label><input id="textColor" type="text">     
+                           <p>Welcome to the button palooza, make yourself a button, press it a few times and have a blast!</p>
                     </div>
                 </div>
             </div>
@@ -104,10 +98,10 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="/assets/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
@@ -116,8 +110,8 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-    <script src="js/constructor.js"></script>
-    <script src="js/ajaxBuddy.js"></script>
+    <script src="/assets/js/constructor.js"></script>
+    <script src="/assets/js/ajaxBuddy.js"></script>
 </body>
 
 </html>
