@@ -81,7 +81,25 @@ const removeButton = (req, res) => {
     return res.redirect('redirect');
   });
 };
-
+const pressButton = (req, res) => {
+  Button.ButtonModel.findByName(req.name, (err, doc) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'an error occured'});
+    }
+    if(doc) {
+      doc.presses++;
+      doc.save((err) => {
+        if(err) {
+          console.log(err);
+          return res.status(400).json({ error: 'an error occured'});
+        }
+        return;
+      });
+    }
+    return; 
+  });
+}
 const makeButton = (req, res) => {
   if (!req.body.name || !req.body.buttonText) {
     return res.status(400).json({ error: 'All fields are required' });
@@ -94,6 +112,8 @@ const makeButton = (req, res) => {
     textColor: req.body.textColor,
     borderColor: req.body.borderColor,
     owner: req.session.account._id,
+    goal: req.body.goal,
+    reward: req.body.reward,
   };
 
   const newButton = new Button.ButtonModel(buttonData);
@@ -112,3 +132,4 @@ module.exports.button = button;
 module.exports.home = index;
 module.exports.viewButton = viewButton;
 module.exports.removeButton = removeButton;
+module.exports.pressButton = pressButton;

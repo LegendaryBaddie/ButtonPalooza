@@ -44,6 +44,14 @@ const ButtonSchema = new mongoose.Schema({
     unique: true,
     ref: 'Account',
   },
+  goal:{
+    type: Number,
+    required: true,
+  },
+  reward:{
+    type: String,
+    required: true,
+  }
 });
 
 ButtonSchema.statics.toAPI = doc => ({

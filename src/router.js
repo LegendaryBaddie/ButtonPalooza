@@ -10,6 +10,7 @@ const router = (app) => {
   app.post('/makeButton', mid.requiresLogin, controllers.Button.makeButton);
   app.get('/viewButton', mid.requiresLogin, controllers.Button.viewButton);
   app.get('/removeButton', mid.requiresLogin, controllers.Button.removeButton);
+  app.post('pressButton', mid.requiresLogin, controllers.Button.pressButton);
   app.get('/redirect', controllers.Pages.redirect);
   app.get('/', mid.requiresSecure, controllers.Button.home);
 };

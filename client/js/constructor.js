@@ -34,7 +34,7 @@ $(document).ready(() => {
      }
       const handleError = (message) => {
         $("#errorMessage").text(message);
-    }
+    };
       const sendAjax = (action, data) => {
         $.ajax({
             cache: false,
@@ -51,8 +51,8 @@ $(document).ready(() => {
                 handleError(messageObj.error);
             }
         });        
-    }
-     
+    };
+ 
     $("#buttonSubmit").on("click", (e) => {
         e.preventDefault();
     
@@ -64,6 +64,13 @@ $(document).ready(() => {
         sendAjax($("#buttonForm").attr("action"),$('#buttonForm').serialize());
         
         return false;
+    });
+       $("#madeButton").on("click", (e) => {
+        let data = {
+            name: "{{button.name}}",
+        };
+        
+        sendAjax("/pressButton", data);
     });
 
          $("#bText").change(() =>{
