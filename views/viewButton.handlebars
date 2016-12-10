@@ -34,7 +34,7 @@
 		<div id="sidebar-wrapper">
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand">
-					<a href="#">
+					<a href="/">
                         Button Palooza
                     </a>
 				</li>
@@ -44,11 +44,11 @@
 				 {{#if account}}
                  {{#if makePage}}
                 <li>
-                    <a href="button">Make Button</a> 
+                    <a href="../button">Make Button</a> 
                 </li>
                 {{else}}
                 <li>
-                    <a href="viewButton">View Button</a>
+                    <a href="../viewButton">View Button</a>
                 </li>
                 {{/if}}
                 <li>
@@ -65,7 +65,7 @@
                         <input id="user" type="text" name="username" placeholder="username"/>
                         <label for="pass">Password: </label>
                         <input id="pass" type="password" name="pass" placeholder="password"/>
-                        <input type="hidden" name="_csrf" value={{csrfToken}} />
+                        <input type="hidden" id="csrf"name="_csrf" value={{csrfToken}} />
                         <a id="loginSubmit" href="#" class="formSubmit">Sign in</a>
                      </form>
                      <a href="signup">Sign up</a>
@@ -88,14 +88,33 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>{{button.name}}</h1>
 						<section id="button">
+							{{#unless noButton}}
+							<h1>{{button.name}}</h1>
 							<button id="madeButton" style="background-color:{{{button.fillColor}}};color:{{{button.textColor}}};border:{{{button.borderWidth}}} solid {{{button.borderColor}}}">{{button.innerText}}</button>	
 							 
-							<h2>Number of clicks: {{button.presses}}</h2>		
+									
+							{{#if button.goalMet}}
+							<h2>The goal of {{button.goal}} clicks has been reached!</h2>
+							<p>The secret is: {{button.reward}}</p>
+							{{else}}
+							<h2 id="presses">Number of clicks: {{button.presses}}</h2>
+							{{/if}}
 							 <h3> You are only allowed one button at a time!</h3>
-                        	<h1><a href="removeButton">Delete Button</a></h1>
+							 {{#unless hideDelete}}
+							<p>Share your button, or visit others.</br>/viewButton/NameOfButtonToVisit</p>
+							<h1><a class="fakeButton" id="deleteButton" href="removeButton">Delete Button</a></h1>
+							
+							{{/unless}}
 						</section>
+						<form id="buttonPress" name="buttonPress" action="/pressButton" method="POST" >
+                        	<input type="hidden" name="name" value={{button.name}} />
+                        	<input type="hidden" id="csrf"name="_csrf" value={{csrfToken}} />
+                     	</form>
+						 {{/unless}}
+						 {{#if noButton}}
+						 	<h1>No button found by that name</h1>
+						 {{/if}}
 					</div>
 				</div>
 			</div>
@@ -116,6 +135,8 @@
     $("#toggle-wrapper").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+		$("#arrow").toggleClass("arrow-left");
+		$("#arrow").toggleClass("arrow-right");
     });
     </script>
     <script src="/assets/js/constructor.js"></script>

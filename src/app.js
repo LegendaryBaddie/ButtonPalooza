@@ -9,7 +9,6 @@ const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const csrf = require('csurf');
 
-
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/Putton';
 
 mongoose.connect(dbURL, (err) => {
@@ -62,6 +61,7 @@ app.use((err, req, res, next) => {
 
   return false;
 });
+
 
 router(app);
 

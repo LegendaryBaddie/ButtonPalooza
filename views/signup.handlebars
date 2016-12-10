@@ -34,7 +34,7 @@
 		<div id="sidebar-wrapper">
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand">
-					<a href="#">
+					<a href="/">
                         Button Palooza
                     </a>
 				</li>
@@ -69,7 +69,7 @@
 								<label for="pass2">Password: </label>
 								<input id="pass2" type="password" name="pass2" placeholder="retype password" />
 								<input type="hidden" name="_csrf" value={{csrfToken}} />
-								<a id="signupSubmit" href="#" class="formSubmit">Sign up</a>
+								<a id="signupSubmit" class="fakeButton" href="#" class="formSubmit">Sign up</a>
 							</form>
 						</section>
 					</div>
@@ -92,6 +92,8 @@
     $("#toggle-wrapper").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+		$("#arrow").toggleClass("arrow-left");
+		$("#arrow").toggleClass("arrow-right");
     });
     </script>
     <script src="/assets/js/constructor.js"></script>

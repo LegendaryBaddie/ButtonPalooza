@@ -44,14 +44,18 @@ const ButtonSchema = new mongoose.Schema({
     unique: true,
     ref: 'Account',
   },
-  goal:{
+  goal: {
     type: Number,
     required: true,
   },
-  reward:{
+  reward: {
     type: String,
     required: true,
-  }
+  },
+  goalMet: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 ButtonSchema.statics.toAPI = doc => ({
@@ -62,6 +66,8 @@ ButtonSchema.statics.toAPI = doc => ({
   textColor: doc.textColor,
   borderColor: doc.borderColor,
   borderWidth: doc.borderWidth,
+  goal: doc.goal,
+  reward: doc.reward,
 });
 
 ButtonSchema.statics.removeByOwner = (ownerId, callback) => {
@@ -74,6 +80,12 @@ ButtonSchema.statics.removeByOwner = (ownerId, callback) => {
 ButtonSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
+  };
+  return ButtonModel.findOne(search, callback);
+};
+ButtonSchema.statics.findByName = (name, callback) => {
+  const search = {
+    name,
   };
   return ButtonModel.findOne(search, callback);
 };

@@ -9,10 +9,13 @@ const router = (app) => {
   app.get('/button', mid.requiresLogin, controllers.Button.button);
   app.post('/makeButton', mid.requiresLogin, controllers.Button.makeButton);
   app.get('/viewButton', mid.requiresLogin, controllers.Button.viewButton);
-  app.get('/removeButton', mid.requiresLogin, controllers.Button.removeButton);
-  app.post('pressButton', mid.requiresLogin, controllers.Button.pressButton);
+  app.get('/removeButton', mid.requiresSecure, mid.requiresLogin, controllers.Button.removeButton);
+  app.post('/pressButton', mid.requiresLogin, controllers.Button.pressButton);
   app.get('/redirect', controllers.Pages.redirect);
   app.get('/', mid.requiresSecure, controllers.Button.home);
+  app.get('/viewButton/logout', mid.requiresLogin, controllers.Account.logout);
+  app.get('/viewButton/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
+  app.get('/viewButton/*', mid.requiresLogin, controllers.Button.viewOthersButton);
 };
 
 module.exports = router;

@@ -34,7 +34,7 @@
 		<div id="sidebar-wrapper">
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand">
-					<a href="#">
+					<a href="/">
                         Button Palooza
                     </a>
 				</li>
@@ -88,6 +88,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
+						<div id="content">
 						<section id="button">
 							<h1>Make Your Button!</h1>
 							<button id="sampleButton"></button>
@@ -102,37 +103,41 @@
 										</ul>
 									 </div>
                          			<div id="color-slider">
-                         				<input type="range" id="red" min="0" max="255" value="255" step="1">
-                        				<input type="range" id="green" min="0" max="255" value="255" step="1">
-                         				<input type="range" id="blue" min="0" max="255" value="255" step="1">
+                         				<label for="red">Red:</label><input type="range" id="red" min="0" max="255" value="127" step="1">
+                        				<label for="green">Green:</label><input type="range" id="green" min="0" max="255" value="127" step="1">
+                         				<label for="blue">Blue:</label><input type="range" id="blue" min="0" max="255" value="127" step="1">
                          			</div>
-								 </div>
+							</div>
 							<form id="buttonForm" name="buttonForm" action="/makeButton" method="POST" class="mainForm">
 								<ul class="form-list">
 									<li>
 										<label for="name">Name </label>
-                               			<input id="name" type="text" name="name" maxlength="12" placeholder="name"/>
+                               			<input id="name" type="text" name="name" maxlength="12" placeholder="Name"/>
 									</li>
 									<li>
                                 		<label for="bText">Button Text </label>
-                                		<input id="bText" maxlength="12" type="text" name="buttonText" placeholder="buttonText"/>
+                                		<input id="bText" maxlength="12" type="text" name="buttonText" placeholder="Button Text"/>
+									</li>
+									<li>
+									<label for="goal">Click Goal </label>
+									<input id="goal" name="goal" type="number" placeholder="10"/>
+									<label for="reward">Secret</label>
+									<input id="reward" name="reward" type="text" placeholder="The meaning of life is 42." />
 									</li>
 								</ul>
-								<div>
-									<label for="goal">Click Goal </label>
-									<input id="goal" name="goal" type="number" />
-									<label for="reward">Reward</label>
-									<input id="reward" name="reward" type="text" />
-								</div>
 								
-								<input type="hidden" id="fillColor" name="fillColor" val="rgb(0,0,0)" />
-								<input type="hidden" id="textColor" name="textColor" val="rgb(0,0,0)" />
-								<input type="hidden" id="borderColor" name="borderColor" val="rgb(0,0,0)"/>
+								<input type="hidden" id="fillColor" name="fillColor" value="rgb(0,0,0)" />
+								<input type="hidden" id="textColor" name="textColor" value="rgb(0,0,0)" />
+								<input type="hidden" id="borderColor" name="borderColor" value="rgb(0,0,0)"/>
 								<input type="hidden" name="_csrf" value={{csrfToken}} />
-								<a id="buttonSubmit" href="#" class="formSubmit">Make It!</a>
+								<div id="center">
+								<a id="buttonSubmit" href="#" class="fakeButton">Make It!</a>
+								</div>
 							</form>
+							<h3 id="errorMessage"></h3>
 							<h3> You are only allowed one button at a time!</h3>
 						</section>
+						<div>
 					</div>
 				</div>
 			</div>
@@ -153,6 +158,8 @@
     $("#toggle-wrapper").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+		$("#arrow").toggleClass("arrow-left");
+		$("#arrow").toggleClass("arrow-right");
     });
     </script>
     <script src="/assets/js/constructor.js"></script>

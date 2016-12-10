@@ -62,6 +62,7 @@ const viewButton = (req, res) => {
         csrfToken: req.csrfToken(),
         button: doc,
         makePage: false,
+
       });
     }
     return res.render('viewButton', {
@@ -71,7 +72,29 @@ const viewButton = (req, res) => {
     });
   });
 };
-
+const viewOthersButton = (req, res) => {
+  const url = req.url;
+  const realUrl = url.split('/', 3);
+  Button.ButtonModel.findByName(realUrl[2], (err, doc) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'an error occured' });
+    }
+    if (doc) {
+      return res.render('viewButton', {
+        account: req.session.account,
+        csrfToken: req.csrfToken(),
+        button: doc,
+        hideDelete: true,
+      });
+    }
+    return res.render('viewButton', {
+      account: req.session.account,
+      csrfToken: req.csrfToken(),
+      noButton: true,
+    });
+  });
+};
 const removeButton = (req, res) => {
   Button.ButtonModel.removeByOwner(req.session.account._id, (err) => {
     if (err) {
@@ -82,24 +105,29 @@ const removeButton = (req, res) => {
   });
 };
 const pressButton = (req, res) => {
-  Button.ButtonModel.findByName(req.name, (err, doc) => {
+  Button.ButtonModel.findByName(req.body.name, (err, doc) => {
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'an error occured'});
+      return res.status(400).json({ error: 'an error occured' });
     }
-    if(doc) {
-      doc.presses++;
-      doc.save((err) => {
-        if(err) {
-          console.log(err);
-          return res.status(400).json({ error: 'an error occured'});
-        }
-        return;
-      });
+    if (!doc) {
+      return res.json({ redirect: req.get('referer') });
     }
-    return; 
+    const butt = doc;
+    butt.presses++;
+    if (butt.presses >= doc.goal) {
+      butt.goalMet = true;
+    }
+    butt.save((er) => {
+      if (er) {
+        console.log(er);
+        return res.status(400).json({ error: 'an error occured' });
+      }
+      return res.json({ redirect: req.get('referer') });
+    });
+    return null;
   });
-}
+};
 const makeButton = (req, res) => {
   if (!req.body.name || !req.body.buttonText) {
     return res.status(400).json({ error: 'All fields are required' });
@@ -114,6 +142,7 @@ const makeButton = (req, res) => {
     owner: req.session.account._id,
     goal: req.body.goal,
     reward: req.body.reward,
+    goalMet: false,
   };
 
   const newButton = new Button.ButtonModel(buttonData);
@@ -133,3 +162,4 @@ module.exports.home = index;
 module.exports.viewButton = viewButton;
 module.exports.removeButton = removeButton;
 module.exports.pressButton = pressButton;
+module.exports.viewOthersButton = viewOthersButton;
